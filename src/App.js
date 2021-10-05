@@ -55,28 +55,27 @@ function Gallery(props) {
 }
 
 function Form(props) {
-  function handleSubmit(e) {
-    e.preventDefault();
-    const { breed } = e.target.elements;
-    props.onFormSubmit(breed.value);
+  function handleChange(e) {
+    props.onFormChange(e.target.value);
   }
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="field has-addons">
           <div className="control is-expanded">
             <div className="select is-fullwidth">
-              <select name="breed" defaultValue="shiba">
+              <select name="breed" defaultValue="shiba" onChange={handleChange}>
                 <option value="shiba">Shiba</option>
                 <option value="akita">Akita</option>
               </select>
             </div>
           </div>
-          <div className="control">
+          {/*<div className="control">
             <button type="submit" className="button is-dark">
               Reload
             </button>
-          </div>
+          </div>*/}
         </div>
       </form>
     </div>
@@ -85,25 +84,31 @@ function Form(props) {
 
 function Main() {
   const [urls, setUrls]  = useState(null);
+  const [breed, setBreed] = useState("shiba");
   useEffect(() => {
-    fetchImages("shiba").then((urls) => {
+    fetchImages(breed).then((urls) => {
       setUrls(urls);
     });
   }, []);
-  function reloadImages(breed) {
+  function reloadStatus(breed) {
+    // 画像を変える
     fetchImages(breed).then((urls) => {
       setUrls(urls);
-    })
+    });
+
+    // 名前を変える
+    setBreed(breed);
   }
 
   return (
     <main>
       <section className="section">
         <div className="container">
-          <Form onFormSubmit={reloadImages} />
+          <Form onFormChange={reloadStatus} />
         </div>
       </section>
       <section className="section">
+        <p className="subtitle">これは { breed } の画像です</p>
         <Gallery urls={urls} />
       </section>
     </main>
