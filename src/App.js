@@ -108,7 +108,7 @@ function Main() {
         </div>
       </section>
       <section className="section">
-        <p className="subtitle">これは { breed } の画像です</p>
+        <p className="subtitle">☆これは { breed } の画像です☆</p>
         <Gallery urls={urls} />
       </section>
     </main>
