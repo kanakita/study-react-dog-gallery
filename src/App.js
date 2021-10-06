@@ -13,6 +13,14 @@ function Header() {
   );
 }
 
+/**
+ * 画像表示用のコンポーネント
+ *
+ * @param {Object} props
+ * @param {string} props.src 画像のURL
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Image(props) {
   return (
     <div className="card">
@@ -28,12 +36,26 @@ function Image(props) {
   );
 }
 
+/**
+ * ローディング
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Loading() {
   return (
     <p>Loading...</p>
   );
 }
 
+/**
+ * 画像のコンテナー
+ *
+ * @param {Object} props
+ * @param {string[]} props.urls 犬の画像のURLの配列
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Gallery(props) {
   const { urls } = props;
   if (urls == null) {
@@ -54,9 +76,17 @@ function Gallery(props) {
   );
 }
 
+/**
+ * 画像切り替えフォーム
+ *
+ * @param {Object} props
+ * @param {Function} props.onChangeBreed 選択している犬の種類変わった時の動作
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Form(props) {
   function handleChange(e) {
-    props.onFormChange(e.target.value);
+    props.onChangeBreed(e.target.value);
   }
 
   return (
@@ -82,6 +112,11 @@ function Form(props) {
   );
 }
 
+/**
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
 function Main() {
   const [urls, setUrls]  = useState(null);
   const [breed, setBreed] = useState("shiba");
@@ -104,7 +139,7 @@ function Main() {
     <main>
       <section className="section">
         <div className="container">
-          <Form onFormChange={reloadStatus} />
+          <Form onChangeBreed={reloadStatus} />
         </div>
       </section>
       <section className="section">
